@@ -154,8 +154,10 @@ Inputs
 ------
 | Name | Description |
 |------|-------------|
-| subnet_id | ID of the Subnet |
-
+| aks_id | ID of AKS |
+| aks_name | Name of the AKS cluster |
+| aks_nodes_rg | Name of the resource group in which AKS nodes are deployed |
+| kubelet_identity | The User Managed Identity used by AKS Agents |
 
 ### Contributors
 
