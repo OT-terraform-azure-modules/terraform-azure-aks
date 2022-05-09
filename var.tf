@@ -88,9 +88,9 @@ variable "enable_log_analytics_workspace" {
 }
 
 variable "vnet_subnet_id" {
- description = "(Optional) The ID of a Subnet where the Kubernetes Node Pool should exist. Changing this forces a new resource to be created."
- type        = string
- default     = null
+  description = "(Optional) The ID of a Subnet where the Kubernetes Node Pool should exist. Changing this forces a new resource to be created."
+  type        = string
+  default     = ""
 }
 
 variable "os_disk_size_gb" {
@@ -314,6 +314,12 @@ variable "identity_type" {
   default     = "SystemAssigned"
 }
 
+variable "user_assigned_identity_name" {
+  type        = string
+  description = "user assigned identity name"
+  default     = "aks-identity"
+}
+
 variable "enable_host_encryption" {
   description = "Enable Host Encryption for default node pool. Encryption at host feature must be enabled on the subscription: https://docs.microsoft.com/azure/virtual-machines/linux/disks-enable-host-based-encryption-cli"
   type        = bool
@@ -331,5 +337,3 @@ variable "vnet_name" {
   type        = string
   default     = "vnet-1"
 }
-
-

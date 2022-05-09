@@ -14,6 +14,6 @@ output "aks_nodes_rg" {
 }
 
 output "kubelet_identity" {
-  description = "The User Managed Identity used by AKS Agents"  
-  value = azurerm_kubernetes_cluster.aks.kubelet_identity
+  description = "The User Managed Identity used by AKS Agents"
+  value       = azurerm_kubernetes_cluster.aks.kubelet_identity
 }

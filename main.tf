@@ -1,14 +1,8 @@
-data "azurerm_subnet" "subnet" {
-  name                 = var.subnet_name
-  virtual_network_name = var.vnet_name
-  resource_group_name  = var.resource_group_name
-}
-
 resource "azurerm_user_assigned_identity" "aks_identity" {
-  count               =  var.identity_type == "UserAssigned"  ? 1 : 0
+  count               = var.identity_type == "UserAssigned" ? 1 : 0
   resource_group_name = var.resource_group_name
   location            = var.location
-  name = "aks-identity"
+  name                = var.user_assigned_identity_name
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
@@ -38,7 +32,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
       node_count             = var.agents_count
       vm_size                = var.agents_size
       os_disk_size_gb        = var.os_disk_size_gb
-      vnet_subnet_id         = data.azurerm_subnet.subnet.id
+      vnet_subnet_id         = var.vnet_subnet_id
       enable_auto_scaling    = var.enable_auto_scaling
       max_count              = var.enable_auto_scaling == true ? var.agents_max_count : null
       min_count              = var.enable_auto_scaling == true ? var.agents_min_count : null
