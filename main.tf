@@ -63,7 +63,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   oms_agent {
-    log_analytics_workspace_id = var.enable_log_analytics_workspace ? azurerm_log_analytics_workspace.main[0].id : null
+    log_analytics_workspace_id = var.enable_log_analytics_workspace ? azurerm_log_analytics_workspace.log[0].id : null
   }
 
   dynamic "ingress_application_gateway" {
