@@ -126,7 +126,7 @@ variable "sku_tier" {
 variable "enable_role_based_access_control" {
   description = "(Optional) Enable Role Based Access Control."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "rbac_aad_managed" {
@@ -329,11 +329,11 @@ variable "enable_host_encryption" {
 variable "subnet_name" {
   description = "(Optional) The name of the subnet ."
   type        = string
-  default     = "subnet1"
+  default     = "default"
 }
 
 variable "vnet_name" {
   description = "(Optional) The name of the vnet ."
   type        = string
-  default     = "vnet-1"
+  default     = "test-vnet"
 }

@@ -71,7 +71,7 @@ module "aks" {
   os_disk_size_gb                           = "50"
   sku_tier                                  = "Free"
   enable_role_based_access_control          = true
-  rbac_aad_managed                          = true
+  rbac_aad_managed                          = false
   network_policy                            = "calico"
   network_plugin                            = "kubenet"
   net_profile_dns_service_ip                = "10.0.0.10"

@@ -15,6 +15,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   private_cluster_enabled          = var.private_cluster_enabled
   http_application_routing_enabled = var.enable_http_application_routing
   azure_policy_enabled             = var.enable_azure_policy
+  role_based_access_control_enabled = var.enable_role_based_access_control
 
   linux_profile {
     admin_username = var.admin_username
@@ -82,16 +83,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
       managed                = var.rbac_aad_managed
       admin_group_object_ids = var.rbac_aad_admin_group_object_ids
       azure_rbac_enabled     = var.enable_role_based_access_control
-    }
-  }
-
-  dynamic "azure_active_directory_role_based_access_control" {
-    for_each = var.enable_role_based_access_control && var.rbac_aad_managed == false ? [1] : []
-    content {
-      managed           = var.rbac_aad_managed
-      client_app_id     = var.rbac_aad_client_app_id
-      server_app_id     = var.rbac_aad_server_app_id
-      server_app_secret = var.rbac_aad_server_app_secret
     }
   }
 

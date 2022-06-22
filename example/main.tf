@@ -12,20 +12,20 @@ provider "azurerm" {
 }
 
 data "azurerm_subnet" "subnet" {
-  name                 = var.subnet_name
-  virtual_network_name = var.vnet_name
-  resource_group_name  = var.resource_group_name
+  name                 = "default"
+  virtual_network_name = "test-vnet"
+  resource_group_name  = "himanshi_rg"
 }
 
-module "resource_group" {
-  source                  = "OT-terraform-azure-modules/resource-group/azure"
-  resource_group_name     = "aks-rg"
-  resource_group_location = "australiaeast"
+# module "resource_group" {
+#   source                  = "OT-terraform-azure-modules/resource-group/azure"
+#   resource_group_name     = "himanshi_rg"
+#   resource_group_location = "australiaeast"
 
-  tag_map = {
-    Name = "AKSRG"
-  }
-}
+#   tag_map = {
+#     Name = "AKSRG"
+#   }
+# }
 
 module "ssh-key" {
   source         = "./key"
@@ -35,8 +35,8 @@ module "ssh-key" {
 module "aks" {
   source                               = "../"
   key_data                             = replace(var.public_ssh_key == "" ? module.ssh-key.public_ssh_key : var.public_ssh_key, "\n", "")
-  resource_group_name                  = module.res_group.resource_group_name
-  location                             = module.res_group.resource_group_location
+  resource_group_name                  = "himanshi_rg"
+  location                             = "eastus"
   cluster_name                         = "testing-aks-cluster"
   cluster_log_analytics_workspace_name = "Workspace-65775"
   prefix                               = "prefix"
@@ -48,8 +48,8 @@ module "aks" {
   tags                                 = var.tags
   os_disk_size_gb                      = "50"
   sku_tier                             = "Free"
-  enable_role_based_access_control     = true
-  rbac_aad_managed                     = true
+  enable_role_based_access_control     = true 
+  rbac_aad_managed                     = false
   network_policy                       = "calico"
   network_plugin                       = "kubenet"
   net_profile_dns_service_ip           = "10.0.0.10"
@@ -69,4 +69,5 @@ module "aks" {
   agents_max_pods                      = 100
   identity_type                        = "SystemAssigned"
   vnet_subnet_id                       = data.azurerm_subnet.subnet.id
+  private_cluster_enabled              = false
 }
