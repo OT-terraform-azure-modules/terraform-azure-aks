@@ -6,15 +6,15 @@ resource "azurerm_user_assigned_identity" "aks_identity" {
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                             = var.cluster_name == null ? "${var.prefix}-aks" : var.cluster_name
-  kubernetes_version               = var.kubernetes_version
-  location                         = var.location
-  resource_group_name              = var.resource_group_name
-  dns_prefix                       = var.prefix
-  sku_tier                         = var.sku_tier
-  private_cluster_enabled          = var.private_cluster_enabled
-  http_application_routing_enabled = var.enable_http_application_routing
-  azure_policy_enabled             = var.enable_azure_policy
+  name                              = var.cluster_name == null ? "${var.prefix}-aks" : var.cluster_name
+  kubernetes_version                = var.kubernetes_version
+  location                          = var.location
+  resource_group_name               = var.resource_group_name
+  dns_prefix                        = var.prefix
+  sku_tier                          = var.sku_tier
+  private_cluster_enabled           = var.private_cluster_enabled
+  http_application_routing_enabled  = var.enable_http_application_routing
+  azure_policy_enabled              = var.enable_azure_policy
   role_based_access_control_enabled = var.enable_role_based_access_control
 
   linux_profile {

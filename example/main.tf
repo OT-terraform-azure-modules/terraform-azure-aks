@@ -17,16 +17,6 @@ data "azurerm_subnet" "subnet" {
   resource_group_name  = "himanshi_rg"
 }
 
-# module "resource_group" {
-#   source                  = "OT-terraform-azure-modules/resource-group/azure"
-#   resource_group_name     = "himanshi_rg"
-#   resource_group_location = "australiaeast"
-
-#   tag_map = {
-#     Name = "AKSRG"
-#   }
-# }
-
 module "ssh-key" {
   source         = "./key"
   public_ssh_key = var.public_ssh_key == "" ? "" : var.public_ssh_key
@@ -48,7 +38,7 @@ module "aks" {
   tags                                 = var.tags
   os_disk_size_gb                      = "50"
   sku_tier                             = "Free"
-  enable_role_based_access_control     = true 
+  enable_role_based_access_control     = true
   rbac_aad_managed                     = false
   network_policy                       = "calico"
   network_plugin                       = "kubenet"

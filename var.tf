@@ -1,15 +1,15 @@
 variable "resource_group_name" {
-  description = "The resource group name to be imported"
+  description = "(Required) The resource group name to be imported"
   type        = string
 }
 variable "location" {
   type        = string
-  description = "Location for resource to be created"
+  description = "(Required) Location for resource to be created"
 }
 
 variable "key_data" {
   type        = string
-  description = "Public key"
+  description = "(Required) Public key if you want to use your existing key"
 }
 
 variable "cluster_name" {
