@@ -59,7 +59,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     for_each = var.client_id == "" || var.client_secret == "" ? ["identity"] : []
     content {
       type                      = var.identity_type
-      user_assigned_identity_id = var.identity_type == "UserAssigned" ? azurerm_user_assigned_identity.aks_identity[0].id : null
+      #user_assigned_identity_id = var.identity_type == "UserAssigned" ? azurerm_user_assigned_identity.aks_identity[0].id : null
     }
   }
 
