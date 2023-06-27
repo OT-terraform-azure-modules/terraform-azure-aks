@@ -38,7 +38,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
       max_count              = var.enable_auto_scaling == true ? var.agents_max_count : null
       min_count              = var.enable_auto_scaling == true ? var.agents_min_count : null
       enable_node_public_ip  = var.enable_node_public_ip
-      availability_zones     = var.agents_availability_zones
+      zones                  = var.agents_availability_zones
       node_labels            = var.agents_labels
       type                   = var.agents_type
       tags                   = merge(var.tags, var.agents_tags)
