@@ -17,3 +17,9 @@ output "kubelet_identity" {
   description = "The User Managed Identity used by AKS Agents"
   value       = azurerm_kubernetes_cluster.aks.kubelet_identity
 }
+
+output "aks_resource_group_name" {
+  description = "aks created internal resouce group"
+  value = azurerm_kubernetes_cluster.aks.node_resource_group
+}
+
