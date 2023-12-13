@@ -158,13 +158,3 @@ Inputs
 | aks_name | Name of the AKS cluster |
 | aks_nodes_rg | Name of the resource group in which AKS nodes are deployed |
 | kubelet_identity | The User Managed Identity used by AKS Agents |
-
-### Contributors
-
-|  [![Himanshi Parnami][himanshi_avatar]][himanshi_homepage]<br/>[Himanshi Parnami][himanshi_homepage] | [![Rishabh Sharma][rishabh_avatar]][rishabh_homepage]<br/>[Rishabh Sharma][rishabh_homepage] |
-|---|---|
-
-  [himanshi_homepage]: https://gitlab.com/himanshiparnami
-  [himanshi_avatar]: https://gitlab.com/uploads/-/system/user/avatar/10920273/avatar.png?width=400
-  [rishabh_homepage]: https://www.linkedin.com/in/rishabh-sharma-b4a0b3152
-  [rishabh_avatar]: https://gitlab.com/uploads/-/system/user/avatar/9890362/avatar.png?width=400
