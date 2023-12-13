@@ -38,7 +38,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
       max_count              = var.enable_auto_scaling == true ? var.agents_max_count : null
       min_count              = var.enable_auto_scaling == true ? var.agents_min_count : null
       enable_node_public_ip  = var.enable_node_public_ip
-      availability_zones     = var.agents_availability_zones
+      # availability_zones     = var.agents_availability_zones
       node_labels            = var.agents_labels
       type                   = var.agents_type
       tags                   = merge(var.tags, var.agents_tags)
@@ -59,13 +59,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
     for_each = var.client_id == "" || var.client_secret == "" ? ["identity"] : []
     content {
       type                      = var.identity_type
-      user_assigned_identity_id = var.identity_type == "UserAssigned" ? azurerm_user_assigned_identity.aks_identity[0].id : null
+      # user_assigned_identity_id = var.identity_type == "UserAssigned" ? azurerm_user_assigned_identity.aks_identity[0].id : null
     }
   }
 
-  oms_agent {
-    log_analytics_workspace_id = var.enable_log_analytics_workspace ? azurerm_log_analytics_workspace.log[0].id : null
-  }
+  # oms_agent {
+  #   log_analytics_workspace_id = var.enable_log_analytics_workspace ? azurerm_log_analytics_workspace.log[0].id : null
+  # }
 
   dynamic "ingress_application_gateway" {
     for_each = var.enable_ingress_application_gateway == null ? [] : ["ingress_application_gateway"]
@@ -110,3 +110,29 @@ resource "azurerm_log_analytics_workspace" "log" {
   tags = var.tags
 }
 
+resource "azurerm_kubernetes_cluster_node_pool" "aks" {
+  lifecycle {
+    ignore_changes = [
+      node_count
+    ]
+  }
+
+  for_each              = var.additional_node_pools
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
+  name                  = lower(each.key)
+  orchestrator_version  = var.kubernetes_version
+  node_count            = each.value.node_count_add
+  vm_size               = each.value.vm_size_add
+  max_pods              = each.value.max_pods_add
+  os_disk_size_gb       = each.value.os_disk_size_gb_add
+  os_type               = each.value.node_os_add
+  vnet_subnet_id        = var.vnet_subnet_id
+  node_labels           = each.value.labels_add
+
+node_taints = each.value.taints_add
+
+  enable_auto_scaling   = each.value.cluster_auto_scaling_add
+  min_count             = each.value.cluster_auto_scaling_min_count_add > 0 ? each.value.cluster_auto_scaling_min_count_add : null
+  max_count             = each.value.cluster_auto_scaling_max_count_add > 0 ? each.value.cluster_auto_scaling_max_count_add : null
+  enable_node_public_ip = false
+}

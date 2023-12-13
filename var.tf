@@ -337,3 +337,20 @@ variable "vnet_name" {
   type        = string
   default     = "test-vnet"
 }
+
+variable "additional_node_pools" {
+  description = "The map object to configure one or several additional node pools with number of worker nodes, worker node VM size and Availability Zones."
+  type = map(object({
+    node_count_add                     = number
+    vm_size_add                       = string
+    zones_add                          = list(string)
+    max_pods_add                      = number
+    os_disk_size_gb_add               = number
+    labels_add                       = map(string)
+    taints_add                         = list(string)
+    node_os_add                        = string
+    cluster_auto_scaling_add           = bool
+    cluster_auto_scaling_min_count_add = number
+    cluster_auto_scaling_max_count_add = number
+  }))
+}
