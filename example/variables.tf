@@ -1,5 +1,10 @@
 # -------------------- aks ----------------------------
 
+variable "public_ssh_key" {
+  default     = ""
+  description = "(Required) The default virtual machine size for the Kubernetes agents"
+  type        = string
+}
 variable "cluster_name" {
   description = "(Optional) The name for the AKS resources created in the specified Azure Resource Group. This variable overwrites the 'prefix' var (The 'prefix' var will still be applied to the dns_prefix if it is set)"
   type        = string
